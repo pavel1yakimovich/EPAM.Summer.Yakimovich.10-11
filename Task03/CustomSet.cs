@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task03
+namespace Task03Logic
 {
     public class CustomSet<T> : IEnumerable<T> where T : class
     {
@@ -24,6 +24,7 @@ namespace Task03
             foreach (T item in arr)
             {
                 array[i] = item;
+                i++;
             }
         }
 
@@ -139,7 +140,7 @@ namespace Task03
 
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable<T>)array).GetEnumerator();
+            return ((IEnumerable<T>) array).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
