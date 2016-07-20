@@ -10,7 +10,6 @@ namespace Task02Logic
     public class CustomQueue<T> : IEnumerable<T>
     {
         public int Capacity => array.Length;
-
         private  T[] array;
 
         public CustomQueue()
@@ -27,6 +26,11 @@ namespace Task02Logic
             }
         }
 
+        #region Operations with queue
+        /// <summary>
+        /// Adds the item in the end of Queue
+        /// </summary>
+        /// <param name="item">Item to add</param>
         public void Enqueue(T item)
         {
             T[] arrayNew = new T[array.Length + 1];
@@ -36,6 +40,10 @@ namespace Task02Logic
             array = arrayNew;
         }
 
+        /// <summary>
+        /// Removes and returns the item in the beginning of queue
+        /// </summary>
+        /// <returns>Item</returns>
         public T Dequeue()
         {
             T item = array[0];
@@ -49,15 +57,23 @@ namespace Task02Logic
             return item;
         }
 
+        /// <summary>
+        /// Returns the item in the beginning of queue
+        /// </summary>
+        /// <returns>Item</returns>
         public T Peek()
         {
             return array[0];
         }
 
+        /// <summary>
+        /// Clears the queue
+        /// </summary>
         public void Clear()
         {
-            array = new T[] { };
+            array = new T[0];
         }
+        #endregion
 
         public IEnumerator<T> GetEnumerator()
         {
