@@ -16,6 +16,8 @@ namespace Task01
         /// <returns>IEnumerable fibonacci numbers</returns>
         public static IEnumerable<int> Fibonacci(int count)
         {
+            if (count < 0)
+                throw new ArgumentException();
             int first = 0, second = 1;
             yield return second;
             for (int i = 0; i < count; i++)
