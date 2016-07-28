@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task05Logic
 {
-    public class SymmetricMatrix<T> : Matrix<T>
+    class SymmetricMatrix<T> : Matrix<T>
     {
         private T[][] array;
 

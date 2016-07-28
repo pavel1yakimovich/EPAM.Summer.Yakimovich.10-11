@@ -12,11 +12,6 @@ namespace Task05Logic
 
         public int Size { get; protected set; }
 
-        public void Accept(ISquareMatrixVisitor visitor)
-        {
-            visitor.Visit((dynamic)this);
-        }
-
         public T this[int i, int j]
         {
             get
