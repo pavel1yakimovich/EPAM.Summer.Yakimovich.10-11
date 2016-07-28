@@ -82,89 +82,49 @@ namespace Task04Logic
                     parent.Right = node;
             }
         }
+        
+        public IEnumerable<T> InOrder() => Inorder(root);
+        public IEnumerable<T> PreOrder() => Preorder(root);
+        public IEnumerable<T> PostOrder() => Postorder(root);
 
-        public IEnumerable<T> InOrder()
+        private IEnumerable<T> Inorder(Node<T> node)
         {
-            if(ReferenceEquals(root, null))
-                yield break;
+            if (node == null) yield break;
+            foreach (var n in Inorder(node.Left))
+                yield return n;
 
-            var stack = new Stack<Node<T>>();
-            var node = root;
-
-            while (stack.Count > 0 || !ReferenceEquals(node, null))
-            {
-                if (ReferenceEquals(node, null))
-                {
-                    node = stack.Pop();
-                    yield return node.Value;
-                    node = node.Right;
-                }
-                else
-                {
-                    stack.Push(node);
-                    node = node.Left;
-                }
-            }
+            yield return node.Value;
+            foreach (var n in Inorder(node.Right))
+                yield return n;
         }
 
-        public IEnumerable<T> PreOrder()
+        private IEnumerable<T> Preorder(Node<T> node)
         {
-            if (ReferenceEquals(root, null))
-                yield break;
+            if (node == null) yield break;
+            yield return node.Value;
+            foreach (var n in Preorder(node.Left))
+                yield return n;
 
-            var stack = new Stack<Node<T>>();
-            stack.Push(root);
-
-            while (stack.Count > 0)
-            {
-                var node = stack.Pop();
-                yield return node.Value;
-                if (!ReferenceEquals(node.Right, null))
-                    stack.Push(node.Right);
-                if (!ReferenceEquals(node.Left, null))
-                    stack.Push(node.Left);
-            }
+            foreach (var n in Preorder(node.Right))
+                yield return n;
         }
 
-        public IEnumerable<T> PostOrder()
+        private IEnumerable<T> Postorder(Node<T> node)
         {
-            if (ReferenceEquals(root, null))
-                yield break;
-            
-            var stack = new Stack<Node<T>>();
-            var node = root;
+            if (node == null) yield break;
 
-            while (stack.Count > 0 || !ReferenceEquals(node, null))
-            {
-                if (ReferenceEquals(node, null))
-                {
-                    node = stack.Pop();
-                    if (stack.Count > 0 && ReferenceEquals(node.Right, stack.Peek()))
-                    {
-                        stack.Pop();
-                        stack.Push(node);
-                        node = node.Right;
-                    }
-                    else
-                    {
-                        yield return node.Value;
-                        node = null;
-                    }
-                }
-                else
-                {
-                    if (!ReferenceEquals(node.Right, null))
-                        stack.Push(node.Right);
-                    stack.Push(node);
-                    node = node.Left;
-                }
-            }
+            foreach (var n in Postorder(node.Left))
+                yield return n;
+
+            foreach (var n in Postorder(node.Right))
+                yield return n;
+            yield return node.Value;
         }
 
         #region IEnumerable<T>
         public IEnumerator<T> GetEnumerator()
         {
-            return InOrder().GetEnumerator();
+            return (IEnumerator<T>) InOrder();
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
